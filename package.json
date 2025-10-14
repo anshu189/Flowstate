@@ -1,0 +1,26 @@
+{
+  "name": "flowstate",
+  "version": "1.0.0",
+  "description": "Sweep the sweat",
+  "scripts": {
+    "test": "jest",
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "keywords": [
+    "flowstate",
+    "drink",
+    "coffee",
+    "peanutbutter"
+  ],
+  "author": "4n5hu",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.16.0",
+    "parcel": "^2.16.0"
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  }
+}

@@ -1,0 +1,183 @@
+body{
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: "Arial", "Helvetica", sans-serif;
+}
+
+p{
+    margin: 0;
+    padding: 0;
+}
+
+a, button{
+    cursor: pointer;
+}
+
+/* <===== CSS Variables config =====> */
+:root{
+    --accentlight: oklch(74.322% 0.12143 290.128);
+    --accentdark: oklch(35.274% 0.15569 281.787);
+    --primarywhite: #f7f7f7;
+    --primaryblack: #222222;
+}
+
+
+/* <===== Theme =====> */
+/* Dark */
+.dark{
+    color: var(--primarywhite) !important;
+    background: var(--primaryblack) !important;
+    
+    .logo, .logo > a:hover{
+        color: var(--primaryblack) !important;
+    }
+    a:hover, li:hover{
+        color: var(--accentlight)
+    }
+    .Header-container{
+        color: var(--primaryblack);
+        background: var(--primarywhite);
+    }
+}
+
+/* Light */
+.light{
+    color: var(--primaryblack) !important;
+    background: var(--primarywhite) !important;
+    .a:hover, li:hover{
+        color: var(--accentlight)
+    }
+    .Header-container{
+        color: var(--primarywhite);
+        background: var(--primaryblack);
+    }
+}
+
+
+/* <====== Main App =====> */
+.app{
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+
+.Header-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 8rem;
+    background: var(--primarywhite);
+}
+
+.logo{
+    font-size: 2rem;
+    color: var(--primarywhite);
+    text-decoration: none;
+}
+
+.Navitems-container > ul{
+    display: flex;
+    gap: 3rem;
+}
+
+.Navitems-container > ul > li{
+ list-style: none;
+ font-size: 18px;
+ cursor: pointer;
+ text-transform: uppercase;
+ transition: all 0.1s ease-in;
+}
+
+.logo img{
+    width: 4rem;
+    height: 4rem;
+    border-radius: 5px;
+}
+
+
+// AppBody
+.Appbody-container{
+    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    padding: 3rem 8rem;
+}
+
+.drinks-container{
+    width: 100%;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+
+// Search Container
+.search-container{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.search-container > input{
+    width: 20rem;
+    padding: 0.5rem;
+    border-radius: 2px;
+    font-size: 16px;
+    border: 1px solid #999999;
+    outline: none;
+    font-size: 16px;
+}   
+
+
+// Drink Card
+.drinkcard-container{
+    width: 100%; 
+    padding: 0 0 1rem 0;
+    display: flex;
+    gap: 1rem;
+    flex: 0 0 15.5rem;
+    flex-direction: column;
+    justify-content: start;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    overflow: hidden;
+    background: var(--primarywhite);
+    transition: all 0.3s ease-in-out;
+    outline: 2px solid var(--primarywhite);
+    filter: drop-shadow(0 0 2px rgba(116, 116, 116, 0.6))   ;
+    // box-shadow: 0 0 2px 0px rgba(116, 116, 116, 0.6);
+}
+
+.drinkcard-container:hover{
+    box-shadow: 0 0 15px 0px rgba(90, 90, 90, 0.3);
+    transform: translateY(-4px);
+    outline: 2px solid var(--accentdark);
+}
+
+.drinkcard-fimage{
+    margin: auto;
+    width: 12rem;
+}
+
+.drinkcard-details{
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+    padding: 0 2rem;
+}
+
+.drinkcard-name > .dcd{
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--accentdark);
+}
+
+.dcd{
+    font-weight: 100;
+}
