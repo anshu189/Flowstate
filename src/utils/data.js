@@ -1,5 +1,3 @@
-import DrinksCard from "./DrinksCard";
-
 const apidata = [
   {
     "@type": "type.googleapis.com/swiggy.presentation.food.v2.Restaurant",
@@ -645,20 +643,4 @@ const apidata = [
   },
 ];
 
-const Appbody = () => {
-  return (
-    <div className="Appbody-container">
-      <div className="search-container">
-        <input type="text" /> 
-        <button>Search</button>
-      </div>
-      <div className="drinks-container">
-        {apidata.map((res) => (
-          <DrinksCard key={res.info.id} data={res} />
-        ))}
-      </div>
-    </div>
-  );
-};
-
-export default Appbody;
+export default apidata;

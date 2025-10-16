@@ -1,9 +1,9 @@
+import { CDNIMG_URL } from "../utils/constants";
+
 const DrinksCard = (props) => {
   const { name, cloudinaryImageId, costForTwo, avgRating, sla } =
     props.data.info;
-  const imageURL =
-    "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" +
-    cloudinaryImageId;
+  const imageURL = CDNIMG_URL + cloudinaryImageId;
 
   return (
     <div className="drinkcard-container">
