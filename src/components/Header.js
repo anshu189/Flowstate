@@ -20,13 +20,16 @@ const Header = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/shop">Grab One</Link>
-          </li>
-          <li>
-            <Link to="/contact">Contact</Link>
-          </li>
-          <li>
             <Link to="/about">About</Link>
+          </li>
+          <li>
+            <Link
+              to="https://github.com/anshu189/flowstate"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              github
+            </Link>
           </li>
           <button className="login-btn" onClick={() => togglelogin()}>
             {loginbtn}

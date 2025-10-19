@@ -86,9 +86,9 @@ button {
 }
 
 .Navitems-container > ul {
+  gap: 3rem;
   display: flex;
   align-items: center;
-  gap: 3rem;
 }
 
 .Navitems-container > ul > li {
@@ -101,6 +101,7 @@ button {
 
 .Navitems-container a {
   color: white;
+  text-decoration: none !important;
 }
 
 .login-btn {
@@ -359,7 +360,7 @@ button {
 .single-restaurant-moreinfo {
   gap: 0.5rem;
   display: flex;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
   flex-direction: column;
   padding: 1.5rem;
