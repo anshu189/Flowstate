@@ -2,7 +2,7 @@ const DrinksCard = (props) => {
   const { name, image, rating, prepTimeMinutes, mealType } = props.data;
 
   return (
-    <div className="drinkcard-container">
+    <div className="single-drinkcard-container">
       <div
         style={{
           backgroundImage: `url("${image}")`,

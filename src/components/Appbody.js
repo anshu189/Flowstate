@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { RESURL } from "../utils/constants";
 import { NetworkError, ProductnotFound } from "../Pages/Error";
+import { Link } from "react-router";
 
 const Appbody = () => {
   const [maindata, setMaindata] = useState([]);
@@ -93,7 +94,15 @@ const Appbody = () => {
         ) : searchres.length === 0 ? (
           <ProductnotFound />
         ) : (
-          searchquerydata.map((res) => <DrinksCard key={res.id} data={res} />)
+          searchquerydata.map((res) => (
+            <Link
+              className="drinkcard-container"
+              key={res.id}
+              to={"/restaurant/" + res.id}
+            >
+              <DrinksCard data={res} />
+            </Link>
+          ))
         )}
       </div>
     </div>

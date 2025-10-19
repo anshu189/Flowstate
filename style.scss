@@ -259,13 +259,24 @@ button {
   transition: all 0.3s ease-in-out;
   outline: 2px solid var(--primarywhite);
   filter: drop-shadow(0 0 2px rgba(116, 116, 116, 0.6));
-  // box-shadow: 0 0 2px 0px rgba(116, 116, 116, 0.6);
 }
 
 .drinkcard-container:hover {
   box-shadow: 0 0 15px 0px rgba(90, 90, 90, 0.3);
   transform: translateY(-4px);
   outline: 2px solid var(--accentdark);
+}
+
+.drinks-container > a {
+  text-decoration: none;
+  color: var(--primaryblack);
+}
+
+.single-drinkcard-container {
+  gap: 1rem;
+  display: flex;
+  padding: 0 0 1rem 0;
+  flex-direction: column;
 }
 
 .drinkcard-fimage {
@@ -291,4 +302,81 @@ button {
 
 .dcd {
   font-weight: 100;
+}
+
+// Single Restaurant Page
+// Single Card
+
+.single-restaurant-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 8rem;
+  overflow: hidden;
+}
+
+.single-restaurant-container2 {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem 5rem 1rem 5rem;
+  border-radius: 5px;
+}
+
+.single-restaurant-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.single-restaurant-header span {
+  font-size: 32px;
+}
+
+.single-restaurant-header,
+.single-restaurant-header h1 {
+  font-weight: 900;
+  color: var(--accentdark);
+}
+
+.single-restaurant-tags {
+  letter-spacing: 2px;
+  font-size: 20px;
+}
+
+.single-restaurant-image-container {
+  width: 1300px;
+  height: 300px;
+  position: relative;
+  border-radius: 10px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position-y: center;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.2));
+}
+
+.single-restaurant-moreinfo {
+  gap: 0.5rem;
+  display: flex;
+  font-size: 24px;
+  font-weight: 600;
+  flex-direction: column;
+  padding: 1.5rem;
+  border-radius: 10px;
+  border: 1px solid #d4d4d4;
+  color: var(--accentdark);
+}
+
+.single-restaurant-categorytype {
+  font-weight: 100;
+  color: var(--primaryblack);
+}
+
+.single-restaurant-totaltime li {
+  color: var(--primaryblack);
+}
+
+.single-restaurant-totaltime li:hover {
+  color: var(--primaryblack);
 }
