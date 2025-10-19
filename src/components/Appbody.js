@@ -1,16 +1,37 @@
 import DrinksCard from "./DrinksCard";
-import apidata from "../utils/data";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
+import { RESURL } from "../utils/constants";
+import { NetworkError, ProductnotFound } from "../Pages/Error";
 
 const Appbody = () => {
-  const [maindata, setMaindata] = useState(apidata);
-  const [searchquerydata, setSearchquerydata] = useState(apidata);
+  const [maindata, setMaindata] = useState([]);
+  const [searchquerydata, setSearchquerydata] = useState([]);
   const [searchvalue, setsearchvalue] = useState("");
+  const [resError, setResError] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [searchres, setSearchres] = useState({});
+
+  const fetchRES = async () => {
+    try {
+      setResError(false);
+      setLoading(true);
+      const data = await fetch(RESURL);
+      const jsondata = await data.json();
+      const restaurantsdata = jsondata?.recipes;
+
+      setMaindata(restaurantsdata);
+      setSearchquerydata(restaurantsdata);
+    } catch (err) {
+      setResError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // Filter based on rating
   const handleFilter = () => {
-    const newfilterdata = maindata.filter((res) => res.info.avgRating > 4.2);
+    const newfilterdata = maindata.filter((res) => res.rating > 4.8);
     setSearchquerydata(newfilterdata);
   };
   // Reset rating based filteration
@@ -21,19 +42,17 @@ const Appbody = () => {
   // Search Logic
   const handlesearch = () => {
     const searchdata = maindata.filter((res) => {
-      return res.info.name.toLowerCase().includes(searchvalue);
+      return res.name.toLowerCase().includes(searchvalue);
     });
-    // console.log(searchquerydata);
+    setSearchres(searchdata);
     setSearchquerydata(searchdata);
   };
 
-  return maindata === 0 ? (
-    <div className="shimmer-container">
-      {[...Array(18).keys()].map((e) => {
-        return <Shimmer />;
-      })}
-    </div>
-  ) : (
+  useEffect(() => {
+    fetchRES();
+  }, []);
+
+  return (
     <div className="Appbody-container">
       <div className="filter-container">
         <div className="search-container">
@@ -63,12 +82,18 @@ const Appbody = () => {
         </div>
       </div>
       <div className="drinks-container">
-        {searchquerydata.length === 0 ? (
-          <p>No Data Found!</p>
+        {loading ? (
+          <div className="shimmer-container">
+            {[...Array(16).keys()].map((e) => {
+              return <Shimmer key={e} />;
+            })}
+          </div>
+        ) : resError ? (
+          <NetworkError />
+        ) : searchres.length === 0 ? (
+          <ProductnotFound />
         ) : (
-          searchquerydata.map((res) => (
-            <DrinksCard key={res.info.id} data={res} />
-          ))
+          searchquerydata.map((res) => <DrinksCard key={res.id} data={res} />)
         )}
       </div>
     </div>
