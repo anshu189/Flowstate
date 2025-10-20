@@ -1,26 +1,11 @@
-import { useEffect, useState } from "react";
-import { RESURL } from "../utils/constants";
 import { useParams } from "react-router";
 import { ProductnotFound } from "./Error";
 import Shimmer from "../components/Shimmer";
+import useResmenu from "../utils/useResmenu";
 
 const SingleRestaurant = () => {
   const resid = useParams();
-  const [singleres, setSingleres] = useState([]);
-
-  useEffect((e) => {
-    fetchMenu();
-  }, []);
-
-  const fetchMenu = async () => {
-    try {
-      const menudata = await fetch(RESURL + "/" + resid.resid);
-      const jsonmenudata = await menudata.json();
-      setSingleres(jsonmenudata);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const singleres = useResmenu(resid);
 
   return singleres.length === 0 ? (
     <Shimmer />
