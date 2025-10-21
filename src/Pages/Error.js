@@ -13,7 +13,7 @@ export const MainError = () => {
 
 export const NetworkError = () => {
   return (
-    <div className="flex flex-col gap-2 w-full h-full text-[22px]">
+    <div className="flex flex-col gap-1 w-full h-full text-[22px]">
       <p className="font-semibold text-red-700">Network Error</p>
       <p>Try again in sometime.</p>
     </div>

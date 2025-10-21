@@ -1,9 +1,11 @@
 import DrinksCard from "./DrinksCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
-import { RESURL } from "../utils/constants";
+import { PAGE_SIZE, RESURL } from "../utils/constants";
 import { NetworkError, ProductnotFound } from "../Pages/Error";
 import { Link } from "react-router";
+import { PAGE_SIZE } from "../utils/constants";
+import usePagination from "../utils/usePagination";
 
 const Appbody = () => {
   const [maindata, setMaindata] = useState([]);
@@ -12,6 +14,10 @@ const Appbody = () => {
   const [resError, setResError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [searchres, setSearchres] = useState({});
+  const [startitem, setStartitem] = useState(0);
+  const [enditem, setEnditem] = useState(PAGE_SIZE);
+
+  const totalpages = Math.ceil(maindata.length / PAGE_SIZE);
 
   const fetchRES = async () => {
     try {
@@ -49,6 +55,14 @@ const Appbody = () => {
     });
     setSearchres(searchdata);
     setSearchquerydata(searchdata);
+  };
+
+  // Pagination Logic
+  const handlePagination = (pagenumber) => {
+    const paginationdata = usePagination(pagenumber);
+    const { startitem, enditem } = paginationdata;
+    setStartitem(startitem);
+    setEnditem(enditem);
   };
 
   useEffect(() => {
@@ -106,7 +120,7 @@ const Appbody = () => {
         ) : searchres.length === 0 ? (
           <ProductnotFound />
         ) : (
-          searchquerydata.map((res) => (
+          searchquerydata.slice(startitem, enditem).map((res) => (
             <Link
               key={res.id}
               to={`/restaurant/${res.id}`}
@@ -116,6 +130,23 @@ const Appbody = () => {
             </Link>
           ))
         )}
+      </div>
+      <div className="flex flex-row justify-center items-center gap-1 mt-6">
+        {[...Array(totalpages).keys()].map((e) => (
+          <button
+            key={e}
+            onClick={(e) => {
+              handlePagination(e.target.textContent);
+            }}
+            className={`p-1 px-3 rounded border-2 hover:border-accentdark transition ${
+              Math.ceil(enditem / PAGE_SIZE) === e + 1
+                ? "border-accentdark bg-accentdark text-primarywhite"
+                : "border-accentlight"
+            }`}
+          >
+            {e + 1}
+          </button>
+        ))}
       </div>
     </div>
   );
