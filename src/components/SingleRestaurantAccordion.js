@@ -1,11 +1,14 @@
-import { useState } from "react";
 import Itemlist from "./Itemlist";
 
-const SingleRestaurantAccordion = ({ name, data }) => {
-  const [showaccordian, setShowaccordian] = useState(false);
-
+const SingleRestaurantAccordion = ({
+  name,
+  data,
+  showitems,
+  setShowaccordion,
+}) => {
+  // Lifting the state up to the parent
   const handleToogle = () => {
-    setShowaccordian(!showaccordian);
+    setShowaccordion();
   };
 
   return (
@@ -19,9 +22,9 @@ const SingleRestaurantAccordion = ({ name, data }) => {
             <p>{name.charAt(0).toUpperCase() + name.slice(1)}</p>{" "}
             <span>({data.length})</span>
           </div>
-          <span>▼</span>
+          <span>{showitems ? "▲" : "▼"}</span>
         </div>
-        {showaccordian && (
+        {showitems && (
           <div className="p-4">
             <Itemlist data={data} />
           </div>

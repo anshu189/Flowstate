@@ -3,9 +3,11 @@ import { NetworkError, ProductnotFound } from "./Error";
 import Shimmer from "../components/Shimmer";
 import useResmenu from "../utils/useResmenu";
 import SingleRestaurantAccordion from "../components/SingleRestaurantAccordion";
+import { useState } from "react";
 
 const SingleRestaurant = () => {
   const resid = useParams();
+  const [showaccordion, setShowaccordion] = useState(null);
   const { singleres, resmnuerror, loading } = useResmenu(resid);
 
   const accordionkeys = Object.keys(singleres).filter(
@@ -102,10 +104,13 @@ const SingleRestaurant = () => {
           </div>
           {/* Instructions and Ingredients */}
           {accordiondata.map((item, i) => (
+            // Controlled Component
             <SingleRestaurantAccordion
               key={i}
               name={item.name}
               data={item.content}
+              showitems={i === showaccordion ? true : false}
+              setShowaccordion={() => setShowaccordion(i)}
             />
           ))}
         </div>
