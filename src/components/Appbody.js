@@ -34,10 +34,12 @@ const Appbody = () => {
   const handleFilter = () => {
     const newfilterdata = maindata.filter((res) => res.rating > 4.8);
     setSearchquerydata(newfilterdata);
+    setsearchvalue("");
   };
   // Reset rating based filteration
   const handleresetFilter = () => {
     setSearchquerydata(maindata);
+    setsearchvalue("");
   };
 
   // Search Logic
@@ -54,40 +56,50 @@ const Appbody = () => {
   }, []);
 
   return (
-    <div className="Appbody-container">
-      <div className="filter-container">
-        <div className="search-container">
+    <div className="flex flex-col gap-8 py-10 px-32">
+      {/* Filter Section */}
+      <div className="flex items-center justify-between gap-4">
+        {/* Search Box */}
+        <div className="flex items-center gap-4">
           <input
-            className="searchinput"
             type="text"
             value={searchvalue}
-            onChange={(e) => {
-              setsearchvalue(e.target.value);
-            }}
+            onChange={(e) => setsearchvalue(e.target.value)}
+            className="px-3 py-2 border-2 border-gray-200 rounded-md text-base outline-none transition-all duration-200 focus:border-gray-600"
+            placeholder="Search..."
           />
-          <button className="search-btn" onClick={() => handlesearch()}>
+          <button
+            onClick={handlesearch}
+            className="px-3 py-2 font-semibold border-2 border-primaryblack rounded-md text-primarywhite bg-primaryblack transition-all duration-200 hover:bg-[#000000]"
+          >
             Search
           </button>
         </div>
 
-        <div className="filterbtn-container">
-          <button className="filter-btn" onClick={() => handleFilter()}>
-            Top Rated Restraunts
+        {/* Filter Buttons */}
+        <div className="flex items-center gap-4">
+          <button
+            onClick={handleFilter}
+            className="px-3 py-2 font-semibold border-2 border-primaryblack rounded-md text-primarywhite bg-primaryblack transition-all duration-200 hover:bg-[#000000]"
+          >
+            Top Rated Restaurants
           </button>
           <button
-            className="reset-filter-btn"
-            onClick={() => handleresetFilter()}
+            onClick={handleresetFilter}
+            className="px-3 py-2 font-semibold border-2 border-primaryblack rounded-md text-primarywhite bg-primaryblack transition-all duration-200 hover:bg-[#000000]"
           >
             Reset
           </button>
         </div>
       </div>
-      <div className="drinks-container">
+
+      {/* Drinks / Cards Section */}
+      <div className="w-full flex flex-wrap gap-8">
         {loading ? (
-          <div className="shimmer-container">
-            {[...Array(16).keys()].map((e) => {
-              return <Shimmer key={e} />;
-            })}
+          <div className="mt-16 flex flex-wrap items-center gap-8">
+            {[...Array(16).keys()].map((e) => (
+              <Shimmer key={e} />
+            ))}
           </div>
         ) : resError ? (
           <NetworkError />
@@ -96,9 +108,9 @@ const Appbody = () => {
         ) : (
           searchquerydata.map((res) => (
             <Link
-              className="drinkcard-container"
               key={res.id}
-              to={"/restaurant/" + res.id}
+              to={`/restaurant/${res.id}`}
+              className="flex flex-col justify-start gap-4 flex-[0_0_24rem] w-full pb-4 text-center rounded-xl cursor-pointer overflow-hidden bg-primarywhite transition-all duration-300 ease-in-out outline outline-2 outline-white hover:shadow-[0_0_15px_rgba(90,90,90,0.3)] hover:-translate-y-1 hover:outline-accentdark filter drop-shadow-[0_0_2px_rgba(116,116,116,0.6)] no-underline text-primaryblack"
             >
               <DrinksCard data={res} />
             </Link>

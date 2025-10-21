@@ -2,29 +2,26 @@ const DrinksCard = (props) => {
   const { name, image, rating, prepTimeMinutes, mealType } = props.data;
 
   return (
-    <div className="single-drinkcard-container">
+    <div className="flex flex-col gap-4 pb-4">
+      {/* Drink Image */}
       <div
-        style={{
-          backgroundImage: `url("${image}")`,
-          backgroundSize: "cover",
-          backgroundPositionY: "center",
-          backgroundRepeat: "no-repeat",
-          height: "250px",
-          width: "100%",
-        }}
+        className="w-full h-[250px] bg-center bg-no-repeat bg-cover rounded-md"
+        style={{ backgroundImage: `url("${image}")` }}
       ></div>
-      <div className="drinkcard-details">
-        <p className="drinkcard-name">
-          <span className="dcd">{name}</span>
+
+      {/* Drink Details */}
+      <div className="flex flex-col gap-2 text-left text-[18px] font-semibold px-6">
+        <p className="text-lg">
+          <span className="font-semibold text-2xl text-accentdark">{name}</span>
         </p>
-        <p className="drinkcard-rating">
-          Rating: <span className="dcd">{rating}</span>
+        <p>
+          Rating: <span className="font-normal">{rating}</span>
         </p>
-        <p className="drinkcard-price">
-          Prepare Time: <span className="dcd">{prepTimeMinutes}</span>
+        <p>
+          Prepare Time: <span className="font-normal">{prepTimeMinutes}</span>
         </p>
-        <p className="drinkcard-delivery">
-          Meal Type: <span className="dcd">{mealType.join(", ")}</span>
+        <p>
+          Meal Type: <span className="font-normal">{mealType.join(", ")}</span>
         </p>
       </div>
     </div>

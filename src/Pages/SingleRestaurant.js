@@ -12,71 +12,72 @@ const SingleRestaurant = () => {
   ) : !singleres.id ? (
     <ProductnotFound />
   ) : (
-    <div className="single-restaurant-container">
-      <div className="single-restaurant-container2">
-        <div className="single-restaurant-info">
-          <div className="single-restaurant-header">
-            <h1>{singleres.name}</h1>
-            <span className="rating">
-              {singleres?.rating && (
-                <>
-                  {singleres.rating}{" "}
-                  {[...Array(Math.floor(Number(singleres.rating) || 0))].map(
-                    (_, i) => (
-                      <span key={i}>★</span>
-                    )
-                  )}
-                </>
-              )}
-            </span>
-          </div>
-          <p className="single-restaurant-tags">
-            {singleres?.tags?.join(", ")}
-          </p>
+    <div className="flex flex-col items-center justify-center px-32 overflow-hidden">
+      <div className="flex flex-col gap-8 p-4 md:p-12 rounded-md">
+        {/* Header */}
+        <div className="flex items-center justify-between font-black text-accentdark">
+          <h1 className="text-3xl md:text-4xl">{singleres.name}</h1>
+          <span className="text-2xl md:text-3xl">
+            {singleres?.rating && (
+              <>
+                {singleres.rating}{" "}
+                {[...Array(Math.floor(Number(singleres.rating) || 0))].map(
+                  (_, i) => (
+                    <span key={i}>★</span>
+                  )
+                )}
+              </>
+            )}
+          </span>
         </div>
+
+        {/* Tags */}
+        <p className="tracking-wider text-lg md:text-xl">
+          {singleres?.tags?.join(", ")}
+        </p>
+
+        {/* Image */}
         <div
-          className="single-restaurant-image-container"
-          style={{
-            backgroundImage: `url(${singleres.image})`,
-          }}
+          className="w-[1300px] h-[300px] rounded-lg bg-cover bg-center bg-no-repeat relative shadow-md"
+          style={{ backgroundImage: `url(${singleres.image})` }}
         ></div>
-        <div className="single-restaurant-moreinfo">
+
+        {/* Info Section */}
+        <div className="flex flex-col gap-1 text-[22px] font-semibold p-6 border border-gray-300 rounded-xl text-accentdark">
           <p>
             Difficulty:{" "}
-            <span className="single-restaurant-categorytype">
+            <span className="font-light text-black">
               {singleres.difficulty}
             </span>
           </p>
           <p>
             Cuisine:{" "}
-            <span className="single-restaurant-categorytype">
-              {singleres.cuisine}
-            </span>
+            <span className="font-light text-black">{singleres.cuisine}</span>
           </p>
           <p>
             Meal Type:{" "}
-            <span className="single-restaurant-categorytype">
+            <span className="font-light text-black">
               {singleres.mealType?.join(", ")}
             </span>
           </p>
           <p>
             Servings:{" "}
-            <span className="single-restaurant-categorytype">
-              {singleres.servings}
-            </span>
+            <span className="font-light text-black">{singleres.servings}</span>
           </p>
-          <div className="single-restaurant-totaltime">
-            <p>Total Time: </p>
-            <ul>
-              <li>
+
+          {/* Total Time */}
+          <div>
+            <p>Total Time:</p>
+            <ul className="list-none">
+              <li className="text-[20px] text-black">
                 Preparation:{" "}
-                <span className="single-restaurant-categorytype">
+                <span className="font-light text-black">
                   {singleres.prepTimeMinutes} min
                 </span>
               </li>
-              <li>
+              <li className="text-[20px] text-black">
                 Cooking:{" "}
-                <span className="single-restaurant-categorytype">
+                <span className="font-light text-black">
                   {singleres.cookTimeMinutes} min
                 </span>
               </li>

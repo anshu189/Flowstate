@@ -10,28 +10,41 @@ const Header = () => {
   };
 
   return (
-    <div className="Header-container">
-      <a href="/" className="logo">
-        <img src={LOGO_URL} alt="Flowstate" />
+    <div className="flex items-center justify-between py-3 px-32 bg-primaryblack">
+      {/* Logo */}
+      <a href="/" className="no-underline">
+        <img src={LOGO_URL} alt="Flowstate" className="w-15 h-15 rounded-md" />
       </a>
-      <div className="Navitems-container">
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
+
+      {/* Navigation Items */}
+      <div>
+        <ul className="font-medium text-primarywhite flex items-center gap-12">
+          <li className="list-none text-lg uppercase cursor-pointer transition-all duration-100 ease-in">
+            <Link to="/" className="no-underline">
+              Home
+            </Link>
           </li>
-          <li>
-            <Link to="/about">About</Link>
+          <li className="list-none text-lg uppercase cursor-pointer transition-all duration-100 ease-in">
+            <Link to="/about" className="no-underline">
+              About
+            </Link>
           </li>
-          <li>
+          <li className="list-none text-lg uppercase cursor-pointer transition-all duration-100 ease-in">
             <Link
               to="https://github.com/anshu189/flowstate"
               target="_blank"
               rel="noopener noreferrer"
+              className="no-underline"
             >
-              github
+              Github
             </Link>
           </li>
-          <button className="login-btn" onClick={() => togglelogin()}>
+
+          {/* Login Button */}
+          <button
+            onClick={togglelogin}
+            className="px-4 py-2 text-primaryblack bg-primarywhite rounded-lg"
+          >
             {loginbtn}
           </button>
         </ul>
