@@ -28,4 +28,18 @@ const DrinksCard = (props) => {
   );
 };
 
+// Higher Order Component - Pure Function
+export const difficultyDrinkCard = (DrinksCard) => {
+  return (props) => {
+    return (
+      <div className="relative overflow-hidden">
+        <label className="absolute top-4 -left-4 w-34 p-1 border-2 border-primarywhite tracking-wider font-medium text-lg bg-accentdark text-primarywhite rounded-full shadow-xl">
+          Popular
+        </label>
+        <DrinksCard {...props} />
+      </div>
+    );
+  };
+};
+
 export default DrinksCard;

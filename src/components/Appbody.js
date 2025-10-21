@@ -1,4 +1,4 @@
-import DrinksCard from "./DrinksCard";
+import DrinksCard, { difficultyDrinkCard } from "./DrinksCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { PAGE_SIZE, RESURL } from "../utils/constants";
@@ -16,6 +16,7 @@ const Appbody = () => {
   const [searchres, setSearchres] = useState({});
   const [startitem, setStartitem] = useState(0);
   const [enditem, setEnditem] = useState(PAGE_SIZE);
+  const DifficultyDrinksCard = difficultyDrinkCard(DrinksCard);
 
   const totalpages = Math.ceil(maindata.length / PAGE_SIZE);
 
@@ -29,6 +30,7 @@ const Appbody = () => {
 
       setMaindata(restaurantsdata);
       setSearchquerydata(restaurantsdata);
+      console.log(restaurantsdata);
     } catch (err) {
       setResError(true);
     } finally {
@@ -42,6 +44,7 @@ const Appbody = () => {
     setSearchquerydata(newfilterdata);
     setsearchvalue("");
   };
+
   // Reset rating based filteration
   const handleresetFilter = () => {
     setSearchquerydata(maindata);
@@ -126,7 +129,11 @@ const Appbody = () => {
               to={`/restaurant/${res.id}`}
               className="flex flex-col justify-start gap-4 flex-[0_0_24rem] w-full pb-4 text-center rounded-xl cursor-pointer overflow-hidden bg-primarywhite transition-all duration-300 ease-in-out outline outline-2 outline-white hover:shadow-[0_0_15px_rgba(90,90,90,0.3)] hover:-translate-y-1 hover:outline-accentdark filter drop-shadow-[0_0_2px_rgba(116,116,116,0.6)] no-underline text-primaryblack"
             >
-              <DrinksCard data={res} />
+              {res.reviewCount > 80 ? (
+                <DifficultyDrinksCard data={res} />
+              ) : (
+                <DrinksCard data={res} />
+              )}
             </Link>
           ))
         )}
