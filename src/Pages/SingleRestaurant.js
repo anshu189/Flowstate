@@ -2,10 +2,20 @@ import { useParams } from "react-router";
 import { NetworkError, ProductnotFound } from "./Error";
 import Shimmer from "../components/Shimmer";
 import useResmenu from "../utils/useResmenu";
+import SingleRestaurantAccordion from "../components/SingleRestaurantAccordion";
 
 const SingleRestaurant = () => {
   const resid = useParams();
   const { singleres, resmnuerror, loading } = useResmenu(resid);
+
+  const accordionkeys = Object.keys(singleres).filter(
+    (key) => key === "ingredients" || key === "instructions"
+  );
+
+  const accordiondata = accordionkeys.map((e) => ({
+    name: e,
+    content: singleres[e],
+  }));
 
   return (
     <div className="flex flex-col items-center justify-center px-32 overflow-hidden">
@@ -37,18 +47,15 @@ const SingleRestaurant = () => {
               )}
             </span>
           </div>
-
           {/* Tags */}
           <p className="tracking-wider text-lg md:text-xl">
             {singleres?.tags?.join(", ")}
           </p>
-
           {/* Image */}
           <div
             className="w-[1300px] h-[300px] rounded-lg bg-cover bg-center bg-no-repeat relative shadow-md"
             style={{ backgroundImage: `url(${singleres.image})` }}
           ></div>
-
           {/* Info Section */}
           <div className="flex flex-col gap-1 text-[22px] font-semibold p-6 border border-gray-300 rounded-xl text-accentdark">
             <p>
@@ -93,6 +100,14 @@ const SingleRestaurant = () => {
               </ul>
             </div>
           </div>
+          {/* Instructions and Ingredients */}
+          {accordiondata.map((item, i) => (
+            <SingleRestaurantAccordion
+              key={i}
+              name={item.name}
+              data={item.content}
+            />
+          ))}
         </div>
       )}
     </div>

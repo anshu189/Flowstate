@@ -30,7 +30,6 @@ const Appbody = () => {
 
       setMaindata(restaurantsdata);
       setSearchquerydata(restaurantsdata);
-      console.log(restaurantsdata);
     } catch (err) {
       setResError(true);
     } finally {
@@ -138,6 +137,7 @@ const Appbody = () => {
           ))
         )}
       </div>
+      {/* Pagination */}
       <div className="flex flex-row justify-center items-center gap-1 mt-6">
         {[...Array(totalpages).keys()].map((e) => (
           <button
