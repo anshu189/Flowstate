@@ -110,7 +110,9 @@ const SingleRestaurant = () => {
               name={item.name}
               data={item.content}
               showitems={i === showaccordion ? true : false}
-              setShowaccordion={() => setShowaccordion(i)}
+              setShowaccordion={() =>
+                setShowaccordion(showaccordion === i ? null : i)
+              }
             />
           ))}
         </div>
