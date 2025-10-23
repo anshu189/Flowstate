@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { LOGO_URL } from "../utils/constants";
 import { Link } from "react-router";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [loginbtn, setLoginbtn] = useState("Login");
@@ -8,6 +9,9 @@ const Header = () => {
   const togglelogin = () => {
     loginbtn === "Login" ? setLoginbtn("Logout") : setLoginbtn("Login");
   };
+
+  const cartItems = useSelector((store) => store.cart.items);
+  const userinfo = useSelector((store) => store.userinfo);
 
   return (
     <div className="flex items-center justify-between py-3 px-32 bg-primaryblack">
@@ -30,6 +34,11 @@ const Header = () => {
             </Link>
           </li>
           <li className="list-none text-lg uppercase cursor-pointer transition-all duration-100 ease-in">
+            <Link to="/cart" className="no-underline">
+              Cart - ({cartItems.length} items)
+            </Link>
+          </li>
+          <li className="list-none text-lg uppercase cursor-pointer transition-all duration-100 ease-in">
             <Link
               to="https://github.com/anshu189/flowstate"
               target="_blank"
@@ -47,6 +56,10 @@ const Header = () => {
           >
             {loginbtn}
           </button>
+
+          <li className="list-none text-lg uppercase cursor-pointer transition-all duration-100 ease-in">
+            {loginbtn === "Logout" ? "🟢 " + userinfo.name : ""}
+          </li>
         </ul>
       </div>
     </div>
