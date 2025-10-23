@@ -64,7 +64,7 @@ const SingleRestaurant = () => {
               {singleres?.tags?.join(", ")}
             </p>
             <button
-              onClick={() => handleCart(singleres.name)}
+              onClick={() => handleCart(singleres)}
               className="px-16 p-2 text-lg font-medium text-primarywhite bg-primaryblack rounded-md"
             >
               Add

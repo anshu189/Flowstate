@@ -3,14 +3,15 @@ import { createSlice } from "@reduxjs/toolkit";
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
-    items: ["raw milk", "cold brew americano", "coffee"],
+    items: [],
   },
   reducers: {
     addItem: (state, action) => {
       state.items.push(action.payload);
     },
-    removeItem: (state) => {
-      state.items.pop();
+    removeItem: (state, action) => {
+      state.items = state.items.filter((item) => item.id !== action.payload.id);
+      console.log(state.items);
     },
     cleanCart: (state) => {
       state.items.length = 0;
