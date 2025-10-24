@@ -11,7 +11,8 @@ describe("About us Test Cases for minor Components", () => {
     expect(heading).toBeInTheDocument();
   });
 
-  test("Should load p tag inside About Us Component", () => {
+  // it is an alias of test
+  it("Should load p tag inside About Us Component", () => {
     render(<About />);
     //   Querying
     const name = screen.getAllByRole("paragraph");

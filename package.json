@@ -36,6 +36,7 @@
     "react-dom": "^19.2.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.9.4",
-    "tailwindcss": "^4.1.15"
+    "tailwindcss": "^4.1.15",
+    "text-encoding": "^0.7.0"
   }
 }
