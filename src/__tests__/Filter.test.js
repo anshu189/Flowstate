@@ -1,10 +1,4 @@
-import {
-  act,
-  fireEvent,
-  prettyDOM,
-  render,
-  screen,
-} from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import Appbody from "../components/Appbody";
 import MOCK_DATA from "../mockdata/mockResData.json";
 import { BrowserRouter } from "react-router-dom";
@@ -20,6 +14,21 @@ global.fetch = jest.fn(() => {
 });
 
 describe("Testing Search & Filter Component Functionality", () => {
+  beforeAll(async () => {
+    // console.log("beforeAll");
+  });
+
+  beforeEach(async () => {
+    // console.log("beforeEach");
+  });
+
+  afterAll(async () => {
+    // console.log("afterAll");
+  });
+
+  afterEach(async () => {
+    // console.log("afterEach");
+  });
   test("should check Search Input box is present or not", async () => {
     await act(() =>
       render(
