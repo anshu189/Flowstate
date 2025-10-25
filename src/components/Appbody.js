@@ -4,7 +4,6 @@ import Shimmer from "./Shimmer";
 import { PAGE_SIZE, RESURL } from "../utils/constants";
 import { NetworkError, ProductnotFound } from "../Pages/Error";
 import { Link } from "react-router";
-import { PAGE_SIZE } from "../utils/constants";
 import usePagination from "../utils/usePagination";
 
 const Appbody = () => {
@@ -79,6 +78,7 @@ const Appbody = () => {
         <div className="flex items-center gap-4">
           <input
             type="text"
+            data-testid="searchinput"
             value={searchvalue}
             onChange={(e) => setsearchvalue(e.target.value)}
             className="px-3 py-2 border-2 border-gray-200 rounded-md text-base outline-none transition-all duration-200 focus:border-gray-600"
