@@ -18,7 +18,6 @@ const CartPage = () => {
 
   useEffect(() => {
     if (cartItems.length === 0) {
-      console.log("navigate");
       navigate("/home");
     }
   }, [cartItems, navigate]);

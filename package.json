@@ -4,7 +4,7 @@
   "description": "Sweep the sweat",
   "scripts": {
     "test": "jest",
-    "watch-test": "jest --watch",
+    "watch-test": "jest --watchAll --coverage",
     "start": "parcel index.html",
     "build": "parcel build index.html"
   },

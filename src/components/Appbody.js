@@ -125,6 +125,7 @@ const Appbody = () => {
           searchquerydata.slice(startitem, enditem).map((res) => (
             <Link
               key={res.id}
+              data-testid="rescard"
               to={`/restaurant/${res.id}`}
               className="flex flex-col justify-start gap-4 flex-[0_0_24rem] w-full pb-4 text-center rounded-xl cursor-pointer overflow-hidden bg-primarywhite transition-all duration-300 ease-in-out outline outline-2 outline-white hover:shadow-[0_0_15px_rgba(90,90,90,0.3)] hover:-translate-y-1 hover:outline-accentdark filter drop-shadow-[0_0_2px_rgba(116,116,116,0.6)] no-underline text-primaryblack"
             >

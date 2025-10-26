@@ -2,7 +2,7 @@ const DrinksCard = (props) => {
   const { name, image, rating, prepTimeMinutes, mealType } = props.data;
 
   return (
-    <div data-testid="rescard" className="flex flex-col gap-4 pb-4">
+    <div className="flex flex-col gap-4 pb-4">
       {/* Drink Image */}
       <div
         className="w-full h-[250px] bg-center bg-no-repeat bg-cover rounded-md"
