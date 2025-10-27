@@ -1,0 +1,119 @@
+import { useRef, useState } from "react";
+import validation from "../utils/validation";
+
+const Login = () => {
+  const [newuser, setNewuser] = useState(true);
+  const handlenewuser = () => {
+    setValidationerrorMessage("");
+    setNewuser(!newuser);
+  };
+  const [validationerrorMessage, setValidationerrorMessage] = useState("");
+  const emailref = useRef(null);
+  const passwordref = useRef(null);
+
+  const handleloginsubmit = () => {
+    const validationcheck = validation(
+      emailref.current.value,
+      passwordref.current.value
+    );
+    setValidationerrorMessage(validationcheck);
+  };
+
+  return (
+    <div className="flex min-h-[100vh] flex-col justify-center px-6 py-12 lg:px-8 text-primarywhite bg-primaryblack">
+      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+        <h2 className="text-center text-2xl font-bold tracking-light">
+          {newuser ? "Create your account" : "Log in to your account"}
+        </h2>
+      </div>
+
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
+          {newuser && (
+            <div>
+              <div className="mt-2">
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="Full Name"
+                  required
+                  autoComplete="name"
+                  className="block w-full rounded-md bg-primarywhite/5 px-3 py-2 text-base outline-1 -outline-offset-1 outline-primarywhite/10 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
+                />
+              </div>
+            </div>
+          )}
+
+          <div>
+            <div className="mt-2">
+              <input
+                id="email"
+                ref={emailref}
+                name="email"
+                type="email"
+                placeholder="Email address"
+                required
+                autoComplete="email"
+                className="block w-full rounded-md bg-primarywhite/5 px-3 py-2 text-base outline-1 -outline-offset-1 outline-primarywhite/10 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
+              />
+            </div>
+          </div>
+
+          <div>
+            {!newuser && (
+              <div className="mb-2 flex items-center justify-end">
+                <div className="text-sm">
+                  <a
+                    href="#"
+                    className="font-semibold text-indigo-400 hover:text-indigo-300"
+                  >
+                    Forgot password?
+                  </a>
+                </div>
+              </div>
+            )}
+            <div>
+              <input
+                id="password"
+                ref={passwordref}
+                name="password"
+                type="password"
+                placeholder="Password"
+                required
+                autoComplete="current-password"
+                className="block w-full rounded-md bg-primarywhite/5 px-3 py-2 text-base outline-1 -outline-offset-1 outline-primarywhite/10 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
+              />
+            </div>
+          </div>
+
+          <div>
+            <p className="text-red-400">{validationerrorMessage}</p>
+          </div>
+
+          <div>
+            <button
+              onClick={handleloginsubmit}
+              className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-2 text-base font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+            >
+              {newuser ? "Sign up" : "Login"}
+            </button>
+          </div>
+        </form>
+
+        <p className="mt-10 text-center text-sm/6 text-gray-400">
+          {newuser ? "Already a member? " : "Not a member? "}
+          <a
+            href="#"
+            onClick={handlenewuser}
+            className="font-semibold text-indigo-400 hover:text-indigo-300"
+          >
+            {newuser ? "Log in" : "Sing up"}
+          </a>
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default Login;

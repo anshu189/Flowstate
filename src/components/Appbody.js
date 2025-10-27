@@ -17,8 +17,6 @@ const Appbody = () => {
   const [enditem, setEnditem] = useState(PAGE_SIZE);
   const DifficultyDrinksCard = difficultyDrinkCard(DrinksCard);
 
-  const totalpages = Math.ceil(maindata.length / PAGE_SIZE);
-
   const fetchRES = async () => {
     try {
       setResError(false);
@@ -35,6 +33,8 @@ const Appbody = () => {
       setLoading(false);
     }
   };
+
+  const totalpages = Math.ceil(searchquerydata.length / PAGE_SIZE);
 
   // Filter based on rating
   const handleFilter = () => {

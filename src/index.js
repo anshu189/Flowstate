@@ -8,6 +8,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
 import { Provider } from "react-redux";
 import appStore from "./store/appStore";
 import CartPage from "./Pages/CartPage";
+import Login from "./components/Login";
 
 // Chunking | Code Splitting | Dynamic Bundling | lazy loading | On demand loading
 const About = lazy(() => import("./Pages/About"));
@@ -23,15 +24,16 @@ const App = () => (
   </StrictMode>
 );
 
+// In Dev-mode
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Login />,
     children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
+      // {
+      //   path: "/",
+      //   element: <Home />,
+      // },
       {
         path: "/home",
         element: <Home />,
