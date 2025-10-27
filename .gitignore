@@ -1,6 +1,10 @@
 /node_modules
 /dist
+/build
 /coverage
+firebase.json
+firebase.js
+.firebaserc
 .parcel-cache
 .parcel-cache/data.mdb
 .parcel-cache/lock.mdb
