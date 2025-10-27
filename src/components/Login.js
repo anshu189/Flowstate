@@ -1,5 +1,10 @@
 import { useRef, useState } from "react";
 import validation from "../utils/validation";
+import { auth } from "../utils/firebase";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 const Login = () => {
   const [newuser, setNewuser] = useState(true);
@@ -17,6 +22,53 @@ const Login = () => {
       passwordref.current.value
     );
     setValidationerrorMessage(validationcheck);
+    if (validationerrorMessage) return;
+
+    // Sign-up/New User Logic
+    if (newuser) {
+      createUserWithEmailAndPassword(
+        auth,
+        emailref.current.value,
+        passwordref.current.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          if (user) {
+            setValidationerrorMessage("Account Created Succeessful!");
+          }
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          if (errorMessage.includes("invalid-email")) {
+            setValidationerrorMessage("Invalid Email");
+          } else if (errorMessage.includes("email-already-in-use")) {
+            setValidationerrorMessage("Email Already Exist");
+          } else {
+            setValidationerrorMessage(`${errorCode} - ${errorMessage}`);
+          }
+        });
+    }
+    // Login/Existing User Logic
+    else {
+      signInWithEmailAndPassword(
+        auth,
+        emailref.current.value,
+        passwordref.current.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          if (user) {
+            setValidationerrorMessage("Login Succeessful!");
+          }
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          if (errorMessage.includes("invalid-credential")) {
+            setValidationerrorMessage("Invalid Credentials");
+          }
+        });
+    }
   };
 
   return (
@@ -88,7 +140,16 @@ const Login = () => {
           </div>
 
           <div>
-            <p className="text-red-400">{validationerrorMessage}</p>
+            <p
+              className={`${
+                validationerrorMessage?.includes("Login Succeessful!") ||
+                validationerrorMessage?.includes("Account Created Succeessful!")
+                  ? "text-green-400"
+                  : " text-red-400 "
+              } `}
+            >
+              {validationerrorMessage}
+            </p>
           </div>
 
           <div>

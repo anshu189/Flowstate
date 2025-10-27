@@ -2,6 +2,7 @@
 /dist
 /build
 /coverage
+/.firebase
 firebase.json
 firebase.js
 .firebaserc
