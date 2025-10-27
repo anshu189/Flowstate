@@ -1,11 +1,25 @@
-import { useRouteError } from "react-router";
+import { useNavigate, useRouteError } from "react-router";
 
 export const MainError = () => {
+  const navigate = useNavigate();
   const err = useRouteError();
+  const fallbacktohome = () => {
+    navigate("/");
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-black">
-      <p className="text-2xl md:text-3xl font-semibold text-blue-300">
-        {err.status}: {err.statusText}
+      <p className="flex flex-col  items-center gap-2 text-2xl md:text-3xl font-semibold text-primarywhite">
+        {err.status} - {err.statusText}
+        <span className="text-sm font-light tracking-widest">
+          This place is Dark, fallback to{" "}
+          <span
+            onClick={fallbacktohome}
+            className="cursor-pointer underline underline-offset-2"
+          >
+            home
+          </span>
+        </span>
       </p>
     </div>
   );
