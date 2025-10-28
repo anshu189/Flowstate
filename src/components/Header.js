@@ -3,11 +3,18 @@ import { Link, useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { auth } from "../utils/firebase";
 import { signOut } from "firebase/auth";
+import { useState } from "react";
+import { IoIosArrowDropdown } from "react-icons/io";
 
 const Header = () => {
   const navigate = useNavigate();
   const cartItems = useSelector((store) => store?.cart?.items);
   const userinfo = useSelector((store) => store?.userinfo);
+  const [showprofile, setShowprofile] = useState(false);
+
+  const handleshowprofile = () => {
+    setShowprofile(!showprofile);
+  };
 
   const handlesignout = () => {
     signOut(auth)
@@ -59,24 +66,39 @@ const Header = () => {
 
           {/* Login Button */}
           {userinfo && (
-            <div className="flex items-center gap-4">
-              {userinfo?.photoURL ? (
-                <img
-                  src={userinfo?.photoURL}
-                  alt={userinfo?.displayName}
-                  className="w-10 h-10 rounded-full cursor-pointer"
-                />
-              ) : (
-                <p className="text-sm font-light border-1 border-dashed py-1 px-2 rounded-full">
-                  No photo
-                </p>
+            <div
+              onClick={handleshowprofile}
+              className="relative flex border-1 border-gray-600 rounded-md cursor-pointer"
+            >
+              <div className="flex items-center gap-4 py-1 px-3">
+                {userinfo?.photoURL ? (
+                  <img
+                    src={userinfo?.photoURL}
+                    alt={userinfo?.displayName}
+                    className="w-10 h-10 rounded-full cursor-pointer"
+                  />
+                ) : (
+                  <p className="text-sm font-light border-1 border-dashed py-1 px-2 rounded-full">
+                    No photo
+                  </p>
+                )}
+                <span>
+                  <IoIosArrowDropdown className="w-6 h-6" />
+                </span>
+              </div>
+              {showprofile && (
+                <div className="absolute p-2 w-full flex flex-col gap-2 items-center justify-stretch text-center text-sm text-primarywhite bg-primaryblack top-14 rounded-md overflow-hidden">
+                  <p className="w-full py-2 rounded-md hover:bg-black duration-300 ease-in-out">
+                    {userinfo?.displayName}
+                  </p>
+                  <button
+                    onClick={handlesignout}
+                    className="w-full py-2 rounded-md hover:bg-black duration-300 ease-in-out"
+                  >
+                    Sign Out
+                  </button>
+                </div>
               )}
-              <li
-                onClick={handlesignout}
-                className="list-none text-lg uppercase cursor-pointer transition-all duration-100 ease-in"
-              >
-                Sign Out
-              </li>
             </div>
           )}
         </ul>

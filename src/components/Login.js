@@ -7,10 +7,13 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { addUser } from "../store/userSlice";
 
 const Login = () => {
   const [newuser, setNewuser] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handlenewuser = () => {
     setValidationerrorMessage("");
