@@ -8,10 +8,11 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
 import { Provider, useDispatch } from "react-redux";
 import appStore from "./store/appStore";
 import CartPage from "./Pages/CartPage";
-import Login from "./components/Login";
 import { auth } from "./utils/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { addUser, removeUser } from "./store/userSlice";
+import ProtectedRoute from "./utils/ProtectedRoute";
+import Login from "./components/Login";
 
 // Chunking | Code Splitting | Dynamic Bundling | lazy loading | On demand loading
 const About = lazy(() => import("./Pages/About"));
@@ -35,7 +36,6 @@ const App = () => {
       } else {
         // User is signed out
         dispatch(removeUser());
-        console.log("User Signed Out");
       }
     });
   }, []);
@@ -51,49 +51,54 @@ const App = () => {
 // In Dev-mode
 const appRouter = createBrowserRouter([
   {
+    path: "/login",
+    element: <Login />,
+  },
+  {
     path: "/",
     element: <App />,
+    errorElement: <MainError />,
     children: [
       {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/",
-        element: <Home />,
-      },
-      {
-        path: "/error",
-        element: <MainError />,
-      },
-      {
-        path: "/home",
-        element: <Home />,
-      },
-      {
-        path: "/about",
-        element: (
-          <Suspense
-            fallback={
-              <>
-                <h1>Loading...</h1>
-              </>
-            }
-          >
-            <About />
-          </Suspense>
-        ),
-      },
-      {
-        path: "/restaurant/:resid",
-        element: <SingleRestaurant />,
-      },
-      {
-        path: "/cart",
-        element: <CartPage />,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: "/",
+            element: <Home />,
+          },
+          {
+            path: "/home",
+            element: <Home />,
+          },
+          {
+            path: "/error",
+            element: <MainError />,
+          },
+          {
+            path: "/about",
+            element: (
+              <Suspense
+                fallback={
+                  <>
+                    <h1>Loading...</h1>
+                  </>
+                }
+              >
+                <About />
+              </Suspense>
+            ),
+          },
+          {
+            path: "/restaurant/:resid",
+            element: <SingleRestaurant />,
+          },
+          {
+            path: "/cart",
+            element: <CartPage />,
+          },
+        ],
       },
     ],
-    errorElement: <MainError />,
   },
 ]);
 

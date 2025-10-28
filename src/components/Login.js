@@ -9,7 +9,7 @@ import {
 import { useNavigate } from "react-router";
 
 const Login = () => {
-  const [newuser, setNewuser] = useState(true);
+  const [newuser, setNewuser] = useState(false);
   const navigate = useNavigate();
 
   const handlenewuser = () => {
@@ -43,6 +43,11 @@ const Login = () => {
             photoURL: "https://avatars.githubusercontent.com/u/65893784?v=4",
           })
             .then(() => {
+              // **To be Noted - For learning purpose**
+              // User is updated again after done under onAuthStateChanged inside index.js
+              // because it gets called just after when the userCredential.user executes
+              // and does not wait for the updateProfile to fetch the data.
+              // appStore gets data before the execution of updateProfile
               const { uid, email, displayName, photoURL } = auth.currentUser;
               dispatch(
                 addUser({
@@ -66,6 +71,8 @@ const Login = () => {
             setValidationerrorMessage("Invalid Email");
           } else if (errorMessage.includes("email-already-in-use")) {
             setValidationerrorMessage("Email Already Exist");
+          } else if (errorMessage.includes("network-request-failed")) {
+            setValidationerrorMessage("Check your internet connection");
           } else {
             setValidationerrorMessage(`${errorCode} - ${errorMessage}`);
           }
@@ -88,6 +95,8 @@ const Login = () => {
           const errorMessage = error.message;
           if (errorMessage.includes("invalid-credential")) {
             setValidationerrorMessage("Invalid Credentials");
+          } else if (errorMessage.includes("network-request-failed")) {
+            setValidationerrorMessage("Check your Internet Connection.");
           }
         });
     }
@@ -164,7 +173,7 @@ const Login = () => {
 
           <div>
             <p
-              className={`${
+              className={`min-h-6 ${
                 validationerrorMessage?.includes("Login Succeessful!") ||
                 validationerrorMessage?.includes("Account Created Succeessful!")
                   ? "text-green-400"

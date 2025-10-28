@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { LOGO_URL } from "../utils/constants";
 import { Link, useNavigate } from "react-router";
 import { useSelector } from "react-redux";
