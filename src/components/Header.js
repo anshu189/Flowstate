@@ -5,6 +5,7 @@ import { auth } from "../utils/firebase";
 import { signOut } from "firebase/auth";
 import { useState } from "react";
 import { IoIosArrowDropdown } from "react-icons/io";
+import { FaGithub } from "react-icons/fa";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -37,30 +38,20 @@ const Header = () => {
 
       {/* Navigation Items */}
       <div>
-        <ul className="font-medium text-primarywhite flex items-center gap-12">
-          <li className="list-none text-lg uppercase cursor-pointer transition-all duration-100 ease-in">
+        <ul className="text-lg text-primarywhite flex items-center gap-8">
+          <li className="list-none cursor-pointer transition-all duration-100 ease-in">
             <Link to="/" className="no-underline">
               Home
             </Link>
           </li>
-          <li className="list-none text-lg uppercase cursor-pointer transition-all duration-100 ease-in">
+          <li className="list-none cursor-pointer transition-all duration-100 ease-in">
             <Link to="/about" className="no-underline">
               About
             </Link>
           </li>
-          <li className="list-none text-lg uppercase cursor-pointer transition-all duration-100 ease-in">
+          <li className="list-none cursor-pointer transition-all duration-100 ease-in">
             <Link to="/cart" className="no-underline">
               Cart - ({cartItems.length} items)
-            </Link>
-          </li>
-          <li className="list-none text-lg uppercase cursor-pointer transition-all duration-100 ease-in">
-            <Link
-              to="https://github.com/anshu189/flowstate"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="no-underline"
-            >
-              Github
             </Link>
           </li>
 
@@ -101,6 +92,17 @@ const Header = () => {
               )}
             </div>
           )}
+
+          <li className="list-none text-lg uppercase cursor-pointer transition-all duration-100 ease-in">
+            <Link
+              to="https://github.com/anshu189/flowstate"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="no-underline"
+            >
+              <FaGithub className="w-8 h-8" />
+            </Link>
+          </li>
         </ul>
       </div>
     </div>
