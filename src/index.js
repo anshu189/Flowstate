@@ -1,39 +1,71 @@
-import { lazy, StrictMode, Suspense } from "react";
+import { lazy, StrictMode, Suspense, useEffect } from "react";
 import Home from "./Pages/Home";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import { MainError } from "./Pages/Error";
 import SingleRestaurant from "./Pages/SingleRestaurant";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import appStore from "./store/appStore";
 import CartPage from "./Pages/CartPage";
 import Login from "./components/Login";
+import { auth } from "./utils/firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { addUser, removeUser } from "./store/userSlice";
 
 // Chunking | Code Splitting | Dynamic Bundling | lazy loading | On demand loading
 const About = lazy(() => import("./Pages/About"));
 
-const App = () => (
-  <StrictMode>
-    <Provider store={appStore}>
-      <div className="light m-0 p-0 min-h-[100vh]">
-        <Header />
-        <Outlet />
-      </div>
-    </Provider>
-  </StrictMode>
-);
+const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in
+        const { uid, email, displayName, photoURL } = user;
+        dispatch(
+          addUser({
+            uid: uid,
+            email: email,
+            displayName: displayName,
+            photoURL: photoURL,
+          })
+        );
+      } else {
+        // User is signed out
+        dispatch(removeUser());
+        console.log("User Signed Out");
+      }
+    });
+  }, []);
+
+  return (
+    <div className="light m-0 p-0 min-h-[100vh]">
+      <Header />
+      <Outlet />
+    </div>
+  );
+};
 
 // In Dev-mode
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <Login />,
+    element: <App />,
     children: [
-      // {
-      //   path: "/",
-      //   element: <Home />,
-      // },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/error",
+        element: <MainError />,
+      },
       {
         path: "/home",
         element: <Home />,
@@ -66,4 +98,10 @@ const appRouter = createBrowserRouter([
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<RouterProvider router={appRouter} />);
+root.render(
+  <StrictMode>
+    <Provider store={appStore}>
+      <RouterProvider router={appRouter} />
+    </Provider>
+  </StrictMode>
+);

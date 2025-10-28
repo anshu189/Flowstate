@@ -1,17 +1,26 @@
 import { useState } from "react";
 import { LOGO_URL } from "../utils/constants";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useSelector } from "react-redux";
+import { auth } from "../utils/firebase";
+import { signOut } from "firebase/auth";
 
 const Header = () => {
-  const [loginbtn, setLoginbtn] = useState("Login");
+  const navigate = useNavigate();
+  const cartItems = useSelector((store) => store?.cart?.items);
+  const userinfo = useSelector((store) => store?.userinfo);
 
-  const togglelogin = () => {
-    loginbtn === "Login" ? setLoginbtn("Logout") : setLoginbtn("Login");
+  const handlesignout = () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+        navigate("/login");
+      })
+      .catch((error) => {
+        // An error happened.
+        navigate("/error");
+      });
   };
-
-  const cartItems = useSelector((store) => store.cart.items);
-  const userinfo = useSelector((store) => store.userinfo);
 
   return (
     <div className="flex items-center justify-between py-3 px-32 bg-primaryblack">
@@ -50,16 +59,27 @@ const Header = () => {
           </li>
 
           {/* Login Button */}
-          <button
-            onClick={togglelogin}
-            className="px-4 py-2 text-primaryblack bg-primarywhite rounded-lg"
-          >
-            {loginbtn}
-          </button>
-
-          <li className="list-none text-lg uppercase cursor-pointer transition-all duration-100 ease-in">
-            {loginbtn === "Logout" ? "🟢 " + userinfo.name : ""}
-          </li>
+          {userinfo && (
+            <div className="flex items-center gap-4">
+              {userinfo?.photoURL ? (
+                <img
+                  src={userinfo?.photoURL}
+                  alt={userinfo?.displayName}
+                  className="w-10 h-10 rounded-full cursor-pointer"
+                />
+              ) : (
+                <p className="text-sm font-light border-1 border-dashed py-1 px-2 rounded-full">
+                  No photo
+                </p>
+              )}
+              <li
+                onClick={handlesignout}
+                className="list-none text-lg uppercase cursor-pointer transition-all duration-100 ease-in"
+              >
+                Sign Out
+              </li>
+            </div>
+          )}
         </ul>
       </div>
     </div>

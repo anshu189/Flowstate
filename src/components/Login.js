@@ -4,15 +4,20 @@ import { auth } from "../utils/firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
+import { useNavigate } from "react-router";
 
 const Login = () => {
   const [newuser, setNewuser] = useState(true);
+  const navigate = useNavigate();
+
   const handlenewuser = () => {
     setValidationerrorMessage("");
     setNewuser(!newuser);
   };
   const [validationerrorMessage, setValidationerrorMessage] = useState("");
+  const nameref = useRef("");
   const emailref = useRef(null);
   const passwordref = useRef(null);
 
@@ -33,9 +38,26 @@ const Login = () => {
       )
         .then((userCredential) => {
           const user = userCredential.user;
-          if (user) {
-            setValidationerrorMessage("Account Created Succeessful!");
-          }
+          updateProfile(user, {
+            displayName: nameref.current.value,
+            photoURL: "https://avatars.githubusercontent.com/u/65893784?v=4",
+          })
+            .then(() => {
+              const { uid, email, displayName, photoURL } = auth.currentUser;
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
+                })
+              );
+              navigate("/");
+            })
+            .catch((error) => {
+              // An error occurred
+              setValidationerrorMessage(error.message);
+            });
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -59,7 +81,7 @@ const Login = () => {
         .then((userCredential) => {
           const user = userCredential.user;
           if (user) {
-            setValidationerrorMessage("Login Succeessful!");
+            navigate("/");
           }
         })
         .catch((error) => {
@@ -86,6 +108,7 @@ const Login = () => {
               <div className="mt-2">
                 <input
                   id="name"
+                  ref={nameref}
                   name="name"
                   type="text"
                   placeholder="Full Name"
