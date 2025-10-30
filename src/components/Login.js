@@ -8,19 +8,25 @@ import {
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { addUser } from "../store/userSlice";
+import { useNavigate } from "react-router";
 
 const Login = () => {
-  const [newuser, setNewuser] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const nameref = useRef("");
+  const emailref = useRef(null);
+  const passwordref = useRef(null);
+  const [newuser, setNewuser] = useState(false);
+  const [validationerrorMessage, setValidationerrorMessage] = useState("");
 
   const handlenewuser = () => {
     setValidationerrorMessage("");
     setNewuser(!newuser);
   };
-  const [validationerrorMessage, setValidationerrorMessage] = useState("");
-  const nameref = useRef("");
-  const emailref = useRef(null);
-  const passwordref = useRef(null);
+
+  // Dev-mode only
+  const user = auth.currentUser;
+  console.log("login user:", user);
 
   const handleloginsubmit = () => {
     const validationcheck = validation(
@@ -88,6 +94,7 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
+          navigate("/");
         })
         .catch((error) => {
           const errorMessage = error.message;
