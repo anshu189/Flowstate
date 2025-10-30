@@ -1,14 +1,17 @@
 import { LOGO_URL } from "../utils/constants";
 import { Link, useNavigate } from "react-router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../utils/firebase";
-import { signOut } from "firebase/auth";
-import { useState } from "react";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { useState, useEffect } from "react";
 import { IoIosArrowDropdown } from "react-icons/io";
 import { FaGithub } from "react-icons/fa";
+import { auth } from "../utils/firebase";
+import { addUser, removeUser } from "../store/userSlice";
 
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const cartItems = useSelector((store) => store?.cart?.items);
   const userinfo = useSelector((store) => store?.userinfo);
   const [showprofile, setShowprofile] = useState(false);
@@ -21,13 +24,34 @@ const Header = () => {
     signOut(auth)
       .then(() => {
         // Sign-out successful.
-        navigate("/login");
       })
       .catch((error) => {
         // An error happened.
         navigate("/error");
       });
   };
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in
+        const { uid, email, displayName, photoURL } = user;
+        dispatch(
+          addUser({
+            uid: uid,
+            email: email,
+            displayName: displayName,
+            photoURL: photoURL,
+          })
+        );
+        navigate("/");
+      } else {
+        // User is signed out
+        dispatch(removeUser());
+        navigate("/login");
+      }
+    });
+  }, []);
 
   return (
     <div className="flex items-center justify-between py-3 px-32 bg-primaryblack">
