@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
+import onAuthStateChange from "../utils/onAuthStateChanged";
 import { useDispatch } from "react-redux";
 import { addUser } from "../store/userSlice";
 import { useNavigate } from "react-router";
@@ -24,9 +25,7 @@ const Login = () => {
     setNewuser(!newuser);
   };
 
-  // Dev-mode only
-  const user = auth.currentUser;
-  console.log("login user:", user);
+  onAuthStateChange();
 
   const handleloginsubmit = () => {
     const validationcheck = validation(
