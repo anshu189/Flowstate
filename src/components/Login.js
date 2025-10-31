@@ -10,6 +10,7 @@ import onAuthStateChange from "../utils/onAuthStateChanged";
 import { useDispatch } from "react-redux";
 import { addUser } from "../store/userSlice";
 import { useNavigate } from "react-router";
+import { PHOTO_URL } from "../utils/constants";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: nameref.current.value,
-            photoURL: "https://avatars.githubusercontent.com/u/65893784?v=4",
+            photoURL: PHOTO_URL,
           })
             .then(() => {
               // **To be Noted - For learning purpose**
