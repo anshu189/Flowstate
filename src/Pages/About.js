@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 
 const About = () => {
   const userinfo = useSelector((store) => store?.userinfo);
-  console.log(userinfo);
   return (
     <div className="flex flex-col gap-10 px-32 py-12">
       <h1 className="text-3xl font-medium">About us Page</h1>

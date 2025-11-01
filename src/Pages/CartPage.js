@@ -56,7 +56,7 @@ const CartPage = () => {
               </p>
               <p>
                 Prepare Time:{" "}
-                <span className="font-normal">{item.prepTimeMinutes}</span>
+                <span className="font-normal">{item.prepTimeMinutes} min</span>
               </p>
               <p>
                 Meal Type:{" "}

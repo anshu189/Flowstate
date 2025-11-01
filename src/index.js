@@ -70,6 +70,10 @@ const appRouter = createBrowserRouter([
     ],
     errorElement: <MainError />,
   },
+  {
+    path: "/*",
+    element: <Login />,
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

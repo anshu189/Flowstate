@@ -14,21 +14,13 @@ global.fetch = jest.fn(() => {
 });
 
 describe("Testing Search & Filter Component Functionality", () => {
-  beforeAll(async () => {
-    // console.log("beforeAll");
-  });
+  beforeAll(async () => {});
 
-  beforeEach(async () => {
-    // console.log("beforeEach");
-  });
+  beforeEach(async () => {});
 
-  afterAll(async () => {
-    // console.log("afterAll");
-  });
+  afterAll(async () => {});
 
-  afterEach(async () => {
-    // console.log("afterEach");
-  });
+  afterEach(async () => {});
   test("should check Search Input box is present or not", async () => {
     await act(() =>
       render(

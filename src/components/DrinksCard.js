@@ -18,7 +18,8 @@ const DrinksCard = (props) => {
           Rating: <span className="font-normal">{rating}</span>
         </p>
         <p>
-          Prepare Time: <span className="font-normal">{prepTimeMinutes}</span>
+          Prepare Time:{" "}
+          <span className="font-normal">{prepTimeMinutes} min</span>
         </p>
         <p>
           Meal Type: <span className="font-normal">{mealType.join(", ")}</span>
